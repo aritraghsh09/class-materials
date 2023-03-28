@@ -6,5 +6,53 @@ Develop a machine learning framework that can predict how bright a galaxy is fro
 ## Background 
 The flux of a galaxy is an important intrinsic physical property of a galaxy. Astronomers have mostly used light-profile fitting techniques (fitting a 2D model to the image of a galaxy) to determine the flux of galaxies in the past. However, these techniques cannot be scaled to the data-volumes expected in astronomy over the next decade. Therefore, it’s important to develop ML-based frameworks that can determine the flux of galaxies.
 
-## How to Download Data?
-Coming Soon! 
+## Data
+The data for this problem consists of galaxies simulated to match galaxies imaged using the [Hyper Suprime-Cam Survey](https://hsc.mtk.nao.ac.jp/ssp/). We will be using simulated galaxies for this problem as we know the robust ground truth for these, and thus we can verify the efficacy of the models that you develope effectively. 
+
+The data consists of 40,000 images; and the ground truth parameters for every image.
+
+* `/images/` (obtained by expanding images.tar.gz)--> This folder contains all the 40,000 images. The images are in the [FITS](https://en.wikipedia.org/wiki/FITS) format -- an extermely popular format for astronomical images. 
+* `gal_morph_train_val.csv` --> Ground Truth parameters for images in the training and validation sets. Its upto you what fraction to use for training/validation
+* `gal_morph_test.csv` --> Ground Truth parameters for images in the test set. No part of this dataset may be used in any way before the final testing phase. 
+
+In both the csv files above, the following columns will be of interest to you:-
+* `file_name` --> Filename in /images/ for the correspinding image
+* `bt` --> Bulge-to-Total Light Ratio for the Galaxy
+* `R_e `--> Radius of the Galaxy (in arcseconds)
+* `total_flux` --> Flux of the galaxy (in ADUs) 
+
+### Prediction Variable
+The goal of this problem is to develop an ML framework that can predict the flux (i.e.brightness) of galaxies. 
+
+### How to Get the Data
+Using Linux/MacOS Command Line, first navigate to the location where you want to download the data. Then type in the following commands
+```bash
+ftp ftp.astro.yale.edu
+cd pub/aghosh/phys_378_projects/gal_morph/
+get *.csv
+get *.tar.gz
+```
+
+If you are using Windows, or if the above method fails, use your browser to navigate to 
+```
+ftp://ftp.astro.yale.edu/pub/aghosh/phys_378_projects/gal_morph/
+```
+Connect as guest if a prompt appears. Now download all the files 
+
+*After downloading the files, expand the `images.tar.gz` tarball to obtain the images folder with all the images.* To expand the tarball, use the following command on unix
+```
+tar –xvzf images.tar.gz
+```
+## Suggestions
+1. To read in the fits files, use the [astropy.io.fits](https://docs.astropy.org/en/stable/io/fits/index.html) module.
+```python
+from astropy.io import fits
+data = fits.getdata("/path/to/image/1.fits")
+```
+  data will be an Numpy array. 
+
+2. The images are 239 pixels X 239 pixels. However, in order to make it easier for your models to train on them (reduce training time,space etc.), you can crop all the images to 143 pixels X 143 pixels
+
+3. While discussing your results, try to check if the accuracy of your flux prediction is dependant on some of the other galaxy parameters referred to above.  
+
+4. Note that the flux values are quite large and vary over orders of magnitude. Think of a mathematical transformation that you can apply to the flux values to make them at least of the same order of magnitude. 
