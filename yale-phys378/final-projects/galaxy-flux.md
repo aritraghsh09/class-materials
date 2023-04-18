@@ -64,7 +64,7 @@ conda deactivate phys378_project
 ```
 Note that the next time you want to work on your project, you have to activate this environment again. 
 
-1. You can use [this demo notebook](https://github.com/aritraghsh09/class-materials/blob/main/yale-phys378/final-projects/experiments/fits_data_loading.ipynb) to see an example of how to load fits images as a PyTorch dataset 
+1. **Use [this demo notebook](https://github.com/aritraghsh09/class-materials/blob/main/yale-phys378/final-projects/experiments/fits_data_loading.ipynb) to see an example of how to load fits images as a PyTorch dataset**
 
 2. To read in individual fits files, use the [astropy.io.fits](https://docs.astropy.org/en/stable/io/fits/index.html) module.
 ```python
