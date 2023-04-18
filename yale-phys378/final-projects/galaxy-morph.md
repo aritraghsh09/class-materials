@@ -46,14 +46,36 @@ Connect as guest if a prompt appears. Now download all the files
 tar –xvzf images.tar.gz
 ```
 ## Suggestions
-1. To read in the fits files, use the [astropy.io.fits](https://docs.astropy.org/en/stable/io/fits/index.html) module.
+0. If you are doing this on a personal laptop or a desktop, the first thing to do is to install [Anaconda](https://www.anaconda.com/) to create an isolated coding environment for your project. Once you have installed anaconda you can create a new environment for your project and install some dependencies using
+```bash
+conda create -n phys378_project python=3.7
+```
+This will create a conda environment called `phys378_project` on your computer and isolate it from other work you might be doing on it. 
+Then activate this environment using 
+```bash
+conda activate phys378_project
+```
+To install dependecies in this environment, use 
+```bash
+pip install fitsdataset
+pip install tqdm
+```
+Once you are finish coding, do
+```
+conda deactivate phys378_project
+```
+Note that the next time you want to work on your project, you have to activate this environment again. 
+
+1. **Use [this demo notebook](https://github.com/aritraghsh09/class-materials/blob/main/yale-phys378/final-projects/experiments/fits_data_loading.ipynb) to see an example of how to load fits images as a PyTorch dataset**
+
+2. To read in the fits files, use the [astropy.io.fits](https://docs.astropy.org/en/stable/io/fits/index.html) module.
 ```python
 from astropy.io import fits
 data = fits.getdata("/path/to/image/1.fits")
 ```
   data will be an Numpy array. 
 
-2. The images are 239 pixels X 239 pixels. However, in order to make it easier for your models to train on them (reduce training time,space etc.), you can crop all the images to 143 pixels X 143 pixels
+3. The images are 239 pixels X 239 pixels. However, in order to make it easier for your models to train on them (reduce training time,space etc.), you can crop all the images to 143 pixels X 143 pixels
 
-3. While discussing your results, try to check if the accuracy of your classifer is dependant on some of the galaxy parameters referred to above. 
+4. While discussing your results, try to check if the accuracy of your classifer is dependant on some of the galaxy parameters referred to above. 
 
